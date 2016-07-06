@@ -29,78 +29,28 @@
 				<p>Run a Powershell window and type the following command (you can paste by right clicking in the Powershell window). This command makes it easier to run Python without specifying its exact location on your machine.</p>
 
 				<pre>
-				[Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")
+[Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")
 				</pre>
 
 				<p>Restart your Powershell window. You should now be able to enter the following command, which starts the Python shell.</p>
 
 				<pre>
-				python
+python
 				</pre>
 
 				<p>Exit the Python shell with:</p>
 
 				<pre>
-				exit()
+exit()
 				</pre>
 
-				<h4>Step 2 (for PC): Installing Virtual Environments</h4>
-
-				<p>Using virtual environments allows you to cordon off all the various packages and libraries you install and get around requirements to run the system as an administrator.</p>
-
-				<p>Open Powershell and enter the following command. Press <code>Return</code> to run:</p>
-
-				<pre>
-				pip install virtualenv
-				</pre>
-
-				<p>Next, we'll install an additional piece of software that will make working with virtual environments a little easier. Open Terminal and enter the following commands, one by one. Press <code>Return</code> to run each of them:</p>
-
-				<pre>
-				pip install virtualenvwrapper-win
-				</pre>
-
-				<p>We'll need to slightly tweak the <a href="https://virtualenv.pypa.io/en/latest/userguide.html">execution policies on the system</a>, so as an administrator, get someone in IT to run the following:</p>
-
-				<pre>
-				Set-ExecutionPolicy -Scope LocalMachine RemoteSigned
-				</pre>
-
-				<p>Now, you will be able to create a new virtual environment with:</p>
-
-				<pre>
-				virtualenv .\foo
-				</pre>
-
-				<p>Activate it with:</p>
-
-				<pre>
-				.\foo\scripts\activate
-				</pre>
-
-				<p>Deactivate with:</p>
-
-				<pre>
-				deactivate
-				</pre>
-
-				<h4>Step 3: The DocumentCloud library</h4>
+				<h4>Step 2: The DocumentCloud library</h4>
 
 				<p><a href="https://www.documentcloud.org/help/api">DocumentCloud has a handy API</a>, which you can learn how to use directly. But a bunch of news nerds have made this much easier with <a href="http://python-documentcloud.readthedocs.io/en/latest/gettingstarted.html">a Python library for DocumentCloud</a>. But we need to install it.</p>
 
 				<p>Remember how in a previous step, we installed pip, the "app store" for Python? We're going to use it here.</p>
 
-				<p>First, we'll navigate to our project directory with <code>cd</code> and create a new virtual environment:</p>
-
-				<pre>
-				virtualenv .\dc-upload
-				</pre>
-
-				<p>Activate it with:</p>
-
-				<pre>
-				.\dc-upload\scripts\activate
-				</pre>
+				<p>First, we'll navigate to our project directory with <code>cd</code>.</p>
 
 				<p>Now, use pip to install the <code>python-documentcloud</code> library:</p>
 
