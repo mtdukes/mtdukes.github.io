@@ -8,7 +8,7 @@
 		width: 100%;
 		height: auto;
 	}
-	pre, code {
+	pre{
 		padding: 10px;
 		background-color: #e9e9e9;
 		border-radius:3px;
@@ -59,38 +59,61 @@
 
 				<h3>Adapting the code</h3>
 
-				<p>Copy the following code and save it to a blank text file.</p><button class="btn" data-clipboard-target="#dc-code">Copy this</button>
+				<p>Copy the following code and save it to a blank text file named <code>dc-upload.py</code>, preferably one level above the folder containing all your documents (you can change this pretty easily).</p><button class="btn" data-clipboard-target="#dc-code" style="display:inline; margin-left:10px;">Copy this</button>
 
 <pre id="dc-code">'''
 Automated script for uploading documents to DocumentCloud
 project id for notetaking purposes: PROJECT ID HERE
 '''
-
+#import our documentcloud library
 from documentcloud import DocumentCloud
+#import a built-in library to navigate files
 import os
 
+#define our main worker function
 def main():
 
+	#store the name of our base directory as a variable (eg: 'test/')
 	base_dir = 'DIRECTORY HERE'
+	#create a blank list
 	upload_files = []
 
+	#loop through the base directory and all its subdirectories
 	for root, dirs, files in os.walk(base_dir):
+		#loop through every file in each subdirectory
 		for f in files:
+			#if the file isn't a garbage file, add its subdirectory
+			#(index 0) and its filename (index 1) to a list
 			if f != '.DS_Store':
 				upload_files.append([root,f])
-	print upload_files
 
+	#create a documentcloud object with your login credentials
 	client = DocumentCloud('USERNAME HERE', 'PASSWORD HERE')
 
+	#loop through each document in the list of files
 	for doc in upload_files:
-		#loading into testing 
+		#for each document, upload to a specifically defined 
+		#documentcloud project with a corresponding filename
+		#and set the document to private access
 		client.documents.upload(doc[0]+'/'+doc[1],doc[1][:-4],project='PROJECT ID HERE',access='private')
+		#Print the name of the file to confirm
 		print doc[1][:-4],'uploaded ...'
 
 if __name__ == '__main__':
+	#run our main worker function on execution
 	main()</pre>
 
+				<p>Open your code using Sublime or a text editor of your choosing. There are a few lines you need to alter, including things specific to your setup and login credentials.</p>
+
+				<p>"Directory" is the folder location of your files, with its corresponding subdirectories. The DocumentCloud project ID can be found by clicking the edit icon for your project in the left navigation rail of DocumentCloud.</p>
+
+				<p>After you change these lines, save your code.</p>
+
 				<h3>Running the code</h3>
+
+				<p>Pull up Powershell and make sure you navigate to the project folder on your machine containing your <code>dc-upload.py</code> file. Run the code with the following command.</p>
+
+				<pre>python dc-upload.py</pre>
 
 				<p>Questions? <a href="mailto:tdukes@wral.com">Contact Tyler Dukes</a>.</p>
 			</div>
