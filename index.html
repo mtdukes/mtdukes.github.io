@@ -9,8 +9,9 @@
 		height: auto;
 	}
 	pre, code {
-		padding: 5px;
+		padding: 10px;
 		background-color: #e9e9e9;
+		border-radius:3px;
 	}
 	</style>
 </head>
@@ -28,21 +29,15 @@
 
 				<p>Run a Powershell window and type the following command (you can paste by right clicking in the Powershell window). This command makes it easier to run Python without specifying its exact location on your machine.</p>
 
-				<pre>
-[Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")
-				</pre>
+<pre>[Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")</pre>
 
 				<p>Restart your Powershell window. You should now be able to enter the following command, which starts the Python shell.</p>
 
-				<pre>
-python
-				</pre>
+<pre>python</pre>
 
 				<p>Exit the Python shell with:</p>
 
-				<pre>
-exit()
-				</pre>
+<pre>exit()</pre>
 
 				<h4>Step 2: The DocumentCloud library</h4>
 
@@ -54,9 +49,7 @@ exit()
 
 				<p>Now, use pip to install the <code>python-documentcloud</code> library:</p>
 
-				<pre>
-				pip install python-documentcloud
-				</pre>
+<pre>pip install python-documentcloud</pre>
 
 				<h4>Step 4 (optional): Download a text editor</h4>
 
@@ -68,8 +61,7 @@ exit()
 
 				<p>Copy the following code and save it to a blank text file.</p><button class="btn" data-clipboard-target="#dc-code">Copy this</button>
 
-				<pre id="dc-code">
-'''
+<pre id="dc-code">'''
 Automated script for uploading documents to DocumentCloud
 project id for notetaking purposes: PROJECT ID HERE
 '''
@@ -92,8 +84,7 @@ def main():
 		print doc[:-4],'uploaded ...'
 
 if __name__ == '__main__':
-	main()
-				</pre>
+	main()</pre>
 
 				<h3>Running the code</h3>
 
