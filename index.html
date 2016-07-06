@@ -72,16 +72,20 @@ import os
 def main():
 
 	base_dir = 'DIRECTORY HERE'
+	upload_files = []
 
-	dirs = os.listdir(base_dir)
-	if '.DS_Store' in dirs:
-		dirs.remove('.DS_Store')
+	for root, dirs, files in os.walk(base_dir):
+		for f in files:
+			if f != '.DS_Store':
+				upload_files.append([root,f])
+	print upload_files
 
 	client = DocumentCloud('USERNAME HERE', 'PASSWORD HERE')
 
-	for doc in dirs:
-		client.documents.upload(base_dir+doc,doc[:-4],project='PROJECT ID HERE',access='public')
-		print doc[:-4],'uploaded ...'
+	for doc in upload_files:
+		#loading into testing 
+		client.documents.upload(doc[0]+'/'+doc[1],doc[1][:-4],project='PROJECT ID HERE',access='private')
+		print doc[1][:-4],'uploaded ...'
 
 if __name__ == '__main__':
 	main()</pre>
