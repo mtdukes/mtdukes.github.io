@@ -1,0 +1,162 @@
+<head>
+	<title>Uploading to DocumentCloud</title>
+	<link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700%7CDroid+Sans:400,700%7CArvo:400,700" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="./main.min.css?v=20150223a">
+	<link rel="Shortcut Icon" href="http://wwwcache.wral.com/favicon.ico" />
+	<style>
+	img {
+		width: 100%;
+		height: auto;
+	}
+	pre {
+		background-color: #f7f7f7;
+		margin-bottom:10px;
+		padding:16px;
+		border-radius:3px;
+		line-height: 1.45;
+		white-space: pre-line;
+	}
+	</style>
+</head>
+<body class="wral">
+	<div class="g-wrap">
+		<div class="container">
+			<div class="1-default">
+				<h2 style="margin-top:20px;">Uploading to DocumentCloud</h2>
+				<p>A quick tutorial on uploading to DocumentCloud using Python and the DocumentCloud API. Based on the underlying work to produce the <a href="http://www.wral.com/search-thousands-of-unc-scandal-records/15030171/">UNC document search app on WRAL.com</a>.</p>
+
+				<h3>Setting up</h3>
+				<h4>Step 1 (for PC): Install Python</h4>
+
+				<p>Install Python version 2.7 by downloading and installing <a href="https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi">the file at the following link</a>. This will also install pip, which is <a href="http://blog.apps.npr.org/2013/06/06/how-to-setup-a-developers-environment.html">like an app store for Python code</a>.</p>
+
+				<p>Run a Powershell window and type the following command (you can paste by right clicking in the Powershell window). This command makes it easier to run Python without specifying its exact location on your machine.</p>
+
+				<pre>
+				[Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")
+				</pre>
+
+				<p>Restart your Powershell window. You should now be able to enter the following command, which starts the Python shell.</p>
+
+				<pre>
+				python
+				</pre>
+
+				<p>Exit the Python shell with:</p>
+
+				<pre>
+				exit()
+				</pre>
+
+				<h4>Step 2 (for PC): Installing Virtual Environments</h4>
+
+				<p>Using virtual environments allows you to cordon off all the various packages and libraries you install and get around requirements to run the system as an administrator.</p>
+
+				<p>Open Powershell and enter the following command. Press <code>Return</code> to run:</p>
+
+				<pre>
+				pip install virtualenv
+				</pre>
+
+				<p>Next, we'll install an additional piece of software that will make working with virtual environments a little easier. Open Terminal and enter the following commands, one by one. Press <code>Return</code> to run each of them:</p>
+
+				<pre>
+				pip install virtualenvwrapper-win
+				</pre>
+
+				<p>We'll need to slightly tweak the <a href="https://virtualenv.pypa.io/en/latest/userguide.html">execution policies on the system</a>, so as an administrator, get someone in IT to run the following:</p>
+
+				<pre>
+				Set-ExecutionPolicy -Scope LocalMachine RemoteSigned
+				</pre>
+
+				<p>Now, you will be able to create a new virtual environment with:</p>
+
+				<pre>
+				virtualenv .\foo
+				</pre>
+
+				<p>Activate it with:</p>
+
+				<pre>
+				.\foo\scripts\activate
+				</pre>
+
+				<p>Deactivate with:</p>
+
+				<pre>
+				deactivate
+				</pre>
+
+				<h4>Step 3: The DocumentCloud library</h4>
+
+				<p><a href="https://www.documentcloud.org/help/api">DocumentCloud has a handy API</a>, which you can learn how to use directly. But a bunch of news nerds have made this much easier with <a href="http://python-documentcloud.readthedocs.io/en/latest/gettingstarted.html">a Python library for DocumentCloud</a>. But we need to install it.</p>
+
+				<p>Remember how in a previous step, we installed pip, the "app store" for Python? We're going to use it here.</p>
+
+				<p>First, we'll navigate to our project directory with <code>cd</code> and create a new virtual environment:</p>
+
+				<pre>
+				virtualenv .\dc-upload
+				</pre>
+
+				<p>Activate it with:</p>
+
+				<pre>
+				.\dc-upload\scripts\activate
+				</pre>
+
+				<p>Now, use pip to install the <code>python-documentcloud</code> library:</p>
+
+				<pre>
+				pip install python-documentcloud
+				</pre>
+
+				<h4>Step 4 (optional): Download a text editor</h4>
+
+				<p>Download and install a text editor <a href="https://www.sublimetext.com/">like Sublime</a>.</p>
+
+				<p>Now we're ready to code.</p>
+
+				<h3>Adapting the code</h3>
+
+				<p>Copy the following code and save it to a blank text file.</p><button class="btn" data-clipboard-target="#dc-code">Copy this</button>
+
+				<pre id="dc-code">
+'''
+Automated script for uploading documents to DocumentCloud
+project id for notetaking purposes: PROJECT ID HERE
+'''
+
+from documentcloud import DocumentCloud
+import os
+
+def main():
+
+	base_dir = 'DIRECTORY HERE'
+
+	dirs = os.listdir(base_dir)
+	if '.DS_Store' in dirs:
+		dirs.remove('.DS_Store')
+
+	client = DocumentCloud('USERNAME HERE', 'PASSWORD HERE')
+
+	for doc in dirs:
+		client.documents.upload(base_dir+doc,doc[:-4],project='PROJECT ID HERE',access='public')
+		print doc[:-4],'uploaded ...'
+
+if __name__ == '__main__':
+	main()
+				</pre>
+
+				<h3>Running the code</h3>
+
+				<p>Questions? <a href="mailto:tdukes@wral.com">Contact Tyler Dukes</a>.</p>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v1.5.10/dist/clipboard.min.js"></script>
+	<script>
+		new Clipboard('.btn');
+	</script>
+</body>
