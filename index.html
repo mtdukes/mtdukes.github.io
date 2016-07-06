@@ -1,126 +1,13 @@
-<head>
-	<title>Uploading to DocumentCloud</title>
-	<link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700%7CDroid+Sans:400,700%7CArvo:400,700" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="./main.min.css?v=20150223a">
-	<link rel="Shortcut Icon" href="http://wwwcache.wral.com/favicon.ico" />
-	<style>
-	img {
-		width: 100%;
-		height: auto;
-	}
-	pre{
-		padding: 10px;
-		background-color: #e9e9e9;
-		border-radius:3px;
-	}
-	</style>
-</head>
-<body class="wral">
-	<div class="g-wrap">
-		<div class="container">
-			<div class="1-default">
-				<h2 style="margin-top:20px;">Uploading to DocumentCloud</h2>
-				<p>A quick tutorial on uploading to DocumentCloud using Python and the DocumentCloud API. Based on the underlying work to produce the <a href="http://www.wral.com/search-thousands-of-unc-scandal-records/15030171/">UNC document search app on WRAL.com</a>.</p>
-
-				<h3>Setting up</h3>
-				<h4>Step 1 (for PC): Install Python</h4>
-
-				<p>Install Python version 2.7 by downloading and installing <a href="https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi">the file at the following link</a>. This will also install pip, which is <a href="http://blog.apps.npr.org/2013/06/06/how-to-setup-a-developers-environment.html">like an app store for Python code</a>.</p>
-
-				<p>Run a Powershell window and type the following command (you can paste by right clicking in the Powershell window). This command makes it easier to run Python without specifying its exact location on your machine.</p>
-
-<pre>[Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")</pre>
-
-				<p>Restart your Powershell window. You should now be able to enter the following command, which starts the Python shell.</p>
-
-<pre>python</pre>
-
-				<p>Exit the Python shell with:</p>
-
-<pre>exit()</pre>
-
-				<h4>Step 2: The DocumentCloud library</h4>
-
-				<p><a href="https://www.documentcloud.org/help/api">DocumentCloud has a handy API</a>, which you can learn how to use directly. But a bunch of news nerds have made this much easier with <a href="http://python-documentcloud.readthedocs.io/en/latest/gettingstarted.html">a Python library for DocumentCloud</a>. But we need to install it.</p>
-
-				<p>Remember how in a previous step, we installed pip, the "app store" for Python? We're going to use it here.</p>
-
-				<p>First, we'll navigate to our project directory with <code>cd</code>.</p>
-
-				<p>Now, use pip to install the <code>python-documentcloud</code> library:</p>
-
-<pre>pip install python-documentcloud</pre>
-
-				<h4>Step 4 (optional): Download a text editor</h4>
-
-				<p>Download and install a text editor <a href="https://www.sublimetext.com/">like Sublime</a>.</p>
-
-				<p>Now we're ready to code.</p>
-
-				<h3>Adapting the code</h3>
-
-				<p>Copy the following code and save it to a blank text file named <code>dc-upload.py</code>, preferably one level above the folder containing all your documents (you can change this pretty easily). <button class="btn" data-clipboard-target="#dc-code" style="display:inline; margin-left:10px;">Copy the code</button></p>
-
-<pre id="dc-code">'''
-Automated script for uploading documents to DocumentCloud
-project id for notetaking purposes: PROJECT ID HERE
-'''
-#import our documentcloud library
-from documentcloud import DocumentCloud
-#import a built-in library to navigate files
-import os
-
-#define our main worker function
-def main():
-
-	#store the name of our base directory as a variable (eg: 'test/')
-	base_dir = 'DIRECTORY HERE'
-	#create a blank list
-	upload_files = []
-
-	#loop through the base directory and all its subdirectories
-	for root, dirs, files in os.walk(base_dir):
-		#loop through every file in each subdirectory
-		for f in files:
-			#if the file isn't a garbage file, add its subdirectory
-			#(index 0) and its filename (index 1) to a list
-			if f != '.DS_Store':
-				upload_files.append([root,f])
-
-	#create a documentcloud object with your login credentials
-	client = DocumentCloud('USERNAME HERE', 'PASSWORD HERE')
-
-	#loop through each document in the list of files
-	for doc in upload_files:
-		#for each document, upload to a specifically defined 
-		#documentcloud project with a corresponding filename
-		#and set the document to private access
-		client.documents.upload(doc[0]+'/'+doc[1],doc[1][:-4],project='PROJECT ID HERE',access='private')
-		#Print the name of the file to confirm
-		print doc[1][:-4],'uploaded ...'
-
-if __name__ == '__main__':
-	#run our main worker function on execution
-	main()</pre>
-
-				<p>Open your code using Sublime or a text editor of your choosing. There are a few lines you need to alter, including things specific to your setup and login credentials.</p>
-
-				<p>"Directory" is the folder location of your files, with its corresponding subdirectories. The DocumentCloud project ID can be found by clicking the edit icon for your project in the left navigation rail of DocumentCloud.</p>
-
-				<p>After you change these lines, save your code.</p>
-
-				<h3>Running the code</h3>
-
-				<p>Pull up Powershell and make sure you navigate to the project folder on your machine containing your <code>dc-upload.py</code> file. Run the code with the following command.</p>
-
-				<pre>python dc-upload.py</pre>
-
-				<p>Questions? <a href="mailto:tdukes@wral.com">Contact Tyler Dukes</a>.</p>
-			</div>
-		</div>
-	</div>
-	<script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v1.5.10/dist/clipboard.min.js"></script>
-	<script>
-		new Clipboard('.btn');
-	</script>
-</body>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tyler Duke's Github Pages</title>
+  	<link rel="stylesheet" href="./main.min.css?v=20150223a">
+  </head>
+  <body>
+    <h1>Tyler Duke's Github Pages</h1>
+    <ul>
+      <li><a href="./documentcloud">Uploading to DocumentCloud</a></li>
+    </ul>
+  </body>
+</html>
